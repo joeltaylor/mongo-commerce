@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1 The Magical Marvels of MongoDB
+
+  h3 New Item
+  div.list
+    div.item-new
+      form(action="/create", method="post", accept-charset="utf-8")
+        input(type="text", name="name")
+    hr
+    h3 Items
+    - for item in items
+      if item._id == current
+        div.item-new
+          form(class='update-form' action='/update/'+ item._id, method='post', accept-charset='utf-8')
+            input(class='update-input' value='#{item.name}' type="text", name="name")
+      else
+        div.item
+            a(class='update-link' href='/edit/'+item._id style="text-decoration:none; color:black;") #{item.name}
+            a(class='del-btn' href='/destroy/'+item._id) 
